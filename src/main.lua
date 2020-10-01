@@ -26,6 +26,10 @@ function love.load()
   love.graphics.setNewFont(20)
   fontHeight = love.graphics.getFont():getHeight()
   
+  -- 100 bpm = 1 beat each 600ms
+  beat_period = 0.600
+  timer = 0
+  
   love.keyboard.keysPressed = {}
   love.mouse.buttonPressed = {}
   love.mouse.buttonReleased = {}
@@ -35,6 +39,44 @@ function love.update(dt)
   -- exit if esc is pressed
   if love.keyboard.keysPressed['escape'] then
     love.event.quit()
+  end
+  
+  -- for later removal - just for testing samples
+  if love.keyboard.keysPressed['1'] then
+    love.audio.play(DRUM_SOUNDS['1'])
+  end
+  if love.keyboard.keysPressed['2'] then
+    love.audio.play(DRUM_SOUNDS['2'])
+  end    
+  if love.keyboard.keysPressed['3'] then
+    love.audio.play(DRUM_SOUNDS['3'])
+  end    
+  if love.keyboard.keysPressed['4'] then
+    love.audio.play(DRUM_SOUNDS['4'])
+  end    
+  if love.keyboard.keysPressed['5'] then
+    love.audio.play(DRUM_SOUNDS['5'])
+  end    
+  if love.keyboard.keysPressed['6'] then
+    love.audio.play(DRUM_SOUNDS['6'])
+  end    
+  if love.keyboard.keysPressed['7'] then
+    love.audio.play(DRUM_SOUNDS['7'])
+  end    
+  if love.keyboard.keysPressed['8'] then
+    love.audio.play(DRUM_SOUNDS['8'])
+  end    
+  if love.keyboard.keysPressed['9'] then
+    love.audio.play(DRUM_SOUNDS['9'])
+  end    
+  if love.keyboard.keysPressed['0'] then
+    love.audio.play(DRUM_SOUNDS['0'])
+  end    
+  
+  timer = timer + dt
+  if timer > beat_period then
+    love.audio.play(DRUM_SOUNDS['1'])
+    timer = timer % beat_period
   end
   
   love.keyboard.keysPressed = {}
