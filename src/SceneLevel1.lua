@@ -4,7 +4,7 @@ function SceneLevel1:init()
   self.player = Player()
   
   -- specify tempo in bpm
-  self.tempo = 100
+  self.tempo = 60
   self.beat_period = 60 / self.tempo
   self.timer = 0
   self.last_beat = 0
@@ -55,20 +55,22 @@ function SceneLevel1:init()
   -- each note will be a table composed by:
   -- beat, midi number (note), (TODO - add velocity and duration)
   -- the notes table must have all beats in ascending order
-  self.score = {
+  self.segment_a = {
     ['notes'] = { { 1, 36 }, { 2, 36 }, { 2, 38 }, { 3, 36 }, { 4, 36 }, { 4, 38 } }
   }
+  self.score = self.segment_a
   
 end
  
 function SceneLevel1:update(dt)
   -- play score
   self.timer = self.timer + dt
-  for key, note in ipairs(self.score['notes']) do
+  for j, note in ipairs(self.score['notes']) do
     beat, midi_num = unpack(note)
     if beat > self.last_beat then
       if self.timer > beat * self.beat_period then
         if midi_num == 36 then
+          self.player:Dash()
           love.audio.play(DRUM_SOUNDS['1'])
         elseif midi_num == 38 then
           love.audio.play(DRUM_SOUNDS['2'])
@@ -77,12 +79,17 @@ function SceneLevel1:update(dt)
       else
         break
       end
+      if j == #self.score['notes'] then
+        self.last_beat = 0
+        self.current_beat = 0
+        self.timer = self.timer % self.beat_period
+      end
     end
   end
   if self.current_beat > self.last_beat then
     self.last_beat = self.current_beat
-  end
-  
+  end  
+
   self.player:update(dt)
 end
 
