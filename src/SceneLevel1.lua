@@ -1,7 +1,16 @@
 SceneLevel1 = Class{__includes = tiny.Scene}
 
 function SceneLevel1:init()
-  self.player = Player()
+  self.world = love.physics.newWorld()
+  self.player = Player(self.world)
+  
+	self.box = {}
+	self.box.body = love.physics.newBody(self.world, math.floor(VIRTUAL_SIZE.x * 3 / 4), math.floor(VIRTUAL_SIZE.y * 3 / 4), "dynamic")
+	self.box.shape = love.physics.newRectangleShape(math.floor(VIRTUAL_SIZE.x / 50), math.floor(VIRTUAL_SIZE.x / 50))
+	self.box.fixture = love.physics.newFixture(self.box.body, self.box.shape)
+ 
+	-- Giving the box a gentle spin.
+	self.box.body:setAngularVelocity(0.5)
   
   -- specify tempo in bpm
   self.tempo = 60
@@ -73,12 +82,14 @@ function SceneLevel1:update(dt)
           self.player:Dash()
           love.audio.play(DRUM_SOUNDS['1'])
         elseif midi_num == 38 then
+          self.player:Shoot()
           love.audio.play(DRUM_SOUNDS['2'])
         end
         self.current_beat = beat
       else
         break
       end
+      -- loop
       if j == #self.score['notes'] then
         self.last_beat = 0
         self.current_beat = 0
@@ -90,9 +101,14 @@ function SceneLevel1:update(dt)
     self.last_beat = self.current_beat
   end  
 
+  self.world:update(dt)
   self.player:update(dt)
 end
 
 function SceneLevel1:render()
   self.player:render()
+
+	-- drawing the box
+	love.graphics.setColor(1, 0.3, 0.3)
+	love.graphics.polygon("fill", self.box.body:getWorldPoints(self.box.shape:getPoints()))
 end

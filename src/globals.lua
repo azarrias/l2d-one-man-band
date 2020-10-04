@@ -21,7 +21,8 @@ require 'util'
 
 -- pixels resolution
 WINDOW_SIZE = tiny.Vector2D(1280, 720)
-VIRTUAL_SIZE = tiny.Vector2D(384, 216)
+--VIRTUAL_SIZE = tiny.Vector2D(384, 216)
+VIRTUAL_SIZE = tiny.Vector2D(768, 432)
 
 PLAYER_SIZE = tiny.Vector2D(16, 16)
 
