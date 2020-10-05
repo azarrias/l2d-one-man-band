@@ -4,6 +4,7 @@ function SceneLevel1:init()
   self.world = love.physics.newWorld()
   self.player = Player(self)
   
+  -- enemies
 	self.box = {}
 	self.box.body = love.physics.newBody(self.world, math.floor(VIRTUAL_SIZE.x * 3 / 4), math.floor(VIRTUAL_SIZE.y * 3 / 4), "dynamic")
 	self.box.shape = love.physics.newRectangleShape(math.floor(VIRTUAL_SIZE.x / 25), math.floor(VIRTUAL_SIZE.x / 25))
