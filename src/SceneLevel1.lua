@@ -2,11 +2,11 @@ SceneLevel1 = Class{__includes = tiny.Scene}
 
 function SceneLevel1:init()
   self.world = love.physics.newWorld()
-  self.player = Player(self.world)
+  self.player = Player(self)
   
 	self.box = {}
 	self.box.body = love.physics.newBody(self.world, math.floor(VIRTUAL_SIZE.x * 3 / 4), math.floor(VIRTUAL_SIZE.y * 3 / 4), "dynamic")
-	self.box.shape = love.physics.newRectangleShape(math.floor(VIRTUAL_SIZE.x / 50), math.floor(VIRTUAL_SIZE.x / 50))
+	self.box.shape = love.physics.newRectangleShape(math.floor(VIRTUAL_SIZE.x / 25), math.floor(VIRTUAL_SIZE.x / 25))
 	self.box.fixture = love.physics.newFixture(self.box.body, self.box.shape)
  
 	-- Giving the box a gentle spin.
