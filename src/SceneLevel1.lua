@@ -4,6 +4,22 @@ function SceneLevel1:init()
   self.world = love.physics.newWorld()
   self.player = Player(self)
   
+  -- bounds
+  self.edges = {
+    { body = love.physics.newBody(self.world, 0, 0, 'static'), --up
+      shape = love.physics.newEdgeShape(0, 0, VIRTUAL_SIZE.x, 0) },
+    { body = love.physics.newBody(self.world, 0, 0, 'static'), --left
+      shape = love.physics.newEdgeShape(0, 0, 0, VIRTUAL_SIZE.y) },
+    { body = love.physics.newBody(self.world, VIRTUAL_SIZE.x, 0, 'static'), --right
+      shape = love.physics.newEdgeShape(0, 0, 0, VIRTUAL_SIZE.y) },
+    { body = love.physics.newBody(self.world, 0, VIRTUAL_SIZE.y, 'static'), --bottom
+      shape = love.physics.newEdgeShape(0, 0, VIRTUAL_SIZE.x, 0) }
+  }
+  
+  for k, edge in pairs(self.edges) do
+    self.edges[k].fixture = love.physics.newFixture(self.edges[k].body, self.edges[k].shape)
+  end
+  
   -- enemies
 	self.box = {}
 	self.box.body = love.physics.newBody(self.world, math.floor(VIRTUAL_SIZE.x * 3 / 4), math.floor(VIRTUAL_SIZE.y * 3 / 4), "dynamic")
