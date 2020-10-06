@@ -29,6 +29,9 @@ function SceneLevel1:init()
 	-- Giving the box a gentle spin.
 	self.box.body:setAngularVelocity(0.5)
   
+  -- projectiles
+  self.projectiles = {}
+  
   -- specify tempo in bpm
   self.tempo = 60
   self.beat_period = 60 / self.tempo
@@ -120,10 +123,19 @@ function SceneLevel1:update(dt)
 
   self.world:update(dt)
   self.player:update(dt)
+  for k, projectile in pairs(self.projectiles) do
+    x1, y1, x2, y2 = projectile.body:getWorldPoints(self.shape:getPoints())
+    if projectile.body:getX() > VIRTUAL_SIZE.x or projectile.body:getX() < 0 - 
+    projectile:update(dt)
+  end
 end
 
 function SceneLevel1:render()
   self.player:render()
+  
+  for k, projectile in pairs(self.projectiles) do
+    projectile:render()
+  end
 
 	-- drawing the box
 	love.graphics.setColor(1, 0.3, 0.3)

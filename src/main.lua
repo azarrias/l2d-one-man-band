@@ -12,7 +12,7 @@ function love.load()
 
   -- use nearest-neighbor (point) filtering on upscaling and downscaling to prevent blurring of text and 
   -- graphics instead of the bilinear filter that is applied by default 
-  love.graphics.setDefaultFilter('nearest', 'nearest')
+  --love.graphics.setDefaultFilter('nearest', 'nearest')
   
   -- Set up window
   push:setupScreen(VIRTUAL_SIZE.x, VIRTUAL_SIZE.y, WINDOW_SIZE.x, WINDOW_SIZE.y, {

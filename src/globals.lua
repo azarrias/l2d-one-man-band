@@ -16,15 +16,16 @@ tiny = require 'libs.tiny'
 
 -- general purpose / utility
 require 'Player'
+require 'Projectile'
 require 'SceneLevel1'
 require 'util'
 
 -- pixels resolution
 WINDOW_SIZE = tiny.Vector2D(1280, 720)
 --VIRTUAL_SIZE = tiny.Vector2D(384, 216)
-VIRTUAL_SIZE = tiny.Vector2D(768, 432)
+VIRTUAL_SIZE = tiny.Vector2D(1280, 720)
 
-PLAYER_SIZE = tiny.Vector2D(16, 16)
+PLAYER_SIZE = tiny.Vector2D(math.floor(VIRTUAL_SIZE.x / 50), math.floor(VIRTUAL_SIZE.x / 50))
 
 -- resources
 SOUNDS = {
