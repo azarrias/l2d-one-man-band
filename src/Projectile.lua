@@ -6,9 +6,15 @@ function Projectile:init(world, pos_a, pos_b)
   self.fixture = love.physics.newFixture(self.body, self.shape)
   self.force = pos_b * 1000
   self.body:applyLinearImpulse(self.force.x, self.force.y)
+  self.time_to_live = 2
+  self.remove_flag = false
 end
 
 function Projectile:update(dt)
+  self.time_to_live = self.time_to_live - dt
+  if self.time_to_live < 0 then
+    self.remove_flag = true
+  end
 end
 
 function Projectile:render()

@@ -13,6 +13,17 @@ end
 
 function Level:update(dt)
   self.world:update(dt)
+
+  for k, projectile in pairs(self.projectiles) do
+    if projectile.remove_flag then
+      table.remove(self.projectiles, k)
+    end
+  end
+
+  for k, projectile in pairs(self.projectiles) do
+    projectile:update(dt)
+  end
+
   self.player:update(dt)
 end
 
