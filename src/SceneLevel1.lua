@@ -1,18 +1,17 @@
 SceneLevel1 = Class{__includes = tiny.Scene}
 
 function SceneLevel1:init()
-  self.world = love.physics.newWorld()
-  self.player = Player(self)
+  self.level = Level()
   
   -- bounds
   self.edges = {
-    { body = love.physics.newBody(self.world, 0, 0, 'static'), --up
+    { body = love.physics.newBody(self.level.world, 0, 0, 'static'), --up
       shape = love.physics.newEdgeShape(0, 0, VIRTUAL_SIZE.x, 0) },
-    { body = love.physics.newBody(self.world, 0, 0, 'static'), --left
+    { body = love.physics.newBody(self.level.world, 0, 0, 'static'), --left
       shape = love.physics.newEdgeShape(0, 0, 0, VIRTUAL_SIZE.y) },
-    { body = love.physics.newBody(self.world, VIRTUAL_SIZE.x, 0, 'static'), --right
+    { body = love.physics.newBody(self.level.world, VIRTUAL_SIZE.x, 0, 'static'), --right
       shape = love.physics.newEdgeShape(0, 0, 0, VIRTUAL_SIZE.y) },
-    { body = love.physics.newBody(self.world, 0, VIRTUAL_SIZE.y, 'static'), --bottom
+    { body = love.physics.newBody(self.level.world, 0, VIRTUAL_SIZE.y, 'static'), --bottom
       shape = love.physics.newEdgeShape(0, 0, VIRTUAL_SIZE.x, 0) }
   }
   
@@ -21,17 +20,10 @@ function SceneLevel1:init()
   end
   
   -- enemies
-	self.box = {}
-	self.box.body = love.physics.newBody(self.world, math.floor(VIRTUAL_SIZE.x * 3 / 4), math.floor(VIRTUAL_SIZE.y * 3 / 4), "dynamic")
-	self.box.shape = love.physics.newRectangleShape(math.floor(VIRTUAL_SIZE.x / 25), math.floor(VIRTUAL_SIZE.x / 25))
-	self.box.fixture = love.physics.newFixture(self.box.body, self.box.shape)
+  local enemy_pos = tiny.Vector2D(math.floor(VIRTUAL_SIZE.x * 3 / 4), math.floor(VIRTUAL_SIZE.y * 3 / 4))
+  local enemy = Enemy(self.level.world, enemy_pos)
+  table.insert(self.level.enemies, enemy)
  
-	-- Giving the box a gentle spin.
-	self.box.body:setAngularVelocity(0.5)
-  
-  -- projectiles
-  self.projectiles = {}
-  
   -- specify tempo in bpm
   self.tempo = 60
   self.beat_period = 60 / self.tempo
@@ -99,10 +91,10 @@ function SceneLevel1:update(dt)
     if beat > self.last_beat then
       if self.timer > beat * self.beat_period then
         if midi_num == 36 then
-          self.player:Dash()
+          self.level.player:Dash()
           love.audio.play(DRUM_SOUNDS['1'])
         elseif midi_num == 38 then
-          self.player:Shoot()
+          self.level.player:Shoot()
           love.audio.play(DRUM_SOUNDS['2'])
         end
         self.current_beat = beat
@@ -121,23 +113,9 @@ function SceneLevel1:update(dt)
     self.last_beat = self.current_beat
   end  
 
-  self.world:update(dt)
-  self.player:update(dt)
-  for k, projectile in pairs(self.projectiles) do
-    x1, y1, x2, y2 = projectile.body:getWorldPoints(self.shape:getPoints())
-    if projectile.body:getX() > VIRTUAL_SIZE.x or projectile.body:getX() < 0 - 
-    projectile:update(dt)
-  end
+  self.level:update(dt)
 end
 
 function SceneLevel1:render()
-  self.player:render()
-  
-  for k, projectile in pairs(self.projectiles) do
-    projectile:render()
-  end
-
-	-- drawing the box
-	love.graphics.setColor(1, 0.3, 0.3)
-	love.graphics.polygon("fill", self.box.body:getWorldPoints(self.box.shape:getPoints()))
+  self.level:render()
 end

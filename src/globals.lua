@@ -15,6 +15,8 @@ require 'libs.slam'
 tiny = require 'libs.tiny'
 
 -- general purpose / utility
+require 'Enemy'
+require 'Level'
 require 'Player'
 require 'Projectile'
 require 'SceneLevel1'
