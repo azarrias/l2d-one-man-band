@@ -17,6 +17,7 @@ function SceneLevel1:init()
   
   for k, edge in pairs(self.edges) do
     self.edges[k].fixture = love.physics.newFixture(self.edges[k].body, self.edges[k].shape)
+    self.edges[k].fixture:setUserData('Edge')
   end
   
   -- enemies

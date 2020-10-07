@@ -9,6 +9,7 @@ function Player:init(level)
   self.body = love.physics.newBody(self.world, math.floor(VIRTUAL_SIZE.x / 2), math.floor(VIRTUAL_SIZE.y / 2), "dynamic")
 	self.shape = love.physics.newCircleShape(PLAYER_SIZE.x / 2)
 	self.fixture = love.physics.newFixture(self.body, self.shape)
+  self.fixture:setUserData('Player')
   self.fixture:setRestitution(1)
 end
  
