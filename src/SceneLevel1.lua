@@ -33,10 +33,19 @@ function SceneLevel1:init()
   -- each note will be a table composed by:
   -- beat, midi number (note), (TODO - add velocity and duration)
   -- the notes table must have all beats in ascending order
+  local score_segment = { { 1, 36 }, { 2, 36 }, { 2, 38 }, { 3, 36 }, { 4, 36 }, { 4, 38 } }
   self.level.score = Score(self.level, {
     ['tempo'] = 110,
-    ['notes'] = { { 1, 36 }, { 2, 36 }, { 2, 38 }, { 3, 36 }, { 4, 36 }, { 4, 38 } }
+    ['notes'] = score_segment
   })
+  -- this doubles note count every time
+  self.level.score:AddNotes(score_segment)
+  self.level.score:AddNotes(score_segment)
+  self.level.score:AddNotes(score_segment)
+  self.level.score:AddNotes(score_segment)
+  self.level.score:AddNotes(score_segment)
+  self.level.score:AddNotes(score_segment)
+  self.level.score:AddNotes(score_segment)
 end
  
 function SceneLevel1:update(dt)

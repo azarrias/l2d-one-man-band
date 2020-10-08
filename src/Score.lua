@@ -30,15 +30,32 @@ function Score:update(dt)
         break
       end
       -- loop
+      --[[
       if j == #self.notes then
         self.last_beat = 0
         self.current_beat = 0
         self.timer = self.timer % self.beat_period
-      end
+      end]]
     end
   end
   if self.current_beat > self.last_beat then
     self.last_beat = self.current_beat
+  end
+end
+
+function Score:AddNotes(notes)
+  local last_beat = self.notes[#self.notes][1]
+  local new_notes = {}
+  for k, note in ipairs(notes) do
+    local new_note = {}
+    new_note[1] = note[1] + last_beat
+    for i = 2, #note, 1 do
+      table.insert(new_note, note[i])
+    end
+    table.insert(new_notes, new_note)
+  end
+  for k, note in ipairs(new_notes) do
+    table.insert(self.notes, note)
   end
 end
 
