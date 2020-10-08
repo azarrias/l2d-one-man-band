@@ -4,29 +4,33 @@ function SceneLevel1:init()
   self.level = Level()
   
   -- bounds
-  self.edges = {
-    { body = love.physics.newBody(self.level.world, 0, 0, 'static'), --up
-      shape = love.physics.newEdgeShape(0, 0, VIRTUAL_SIZE.x, 0) },
-    { body = love.physics.newBody(self.level.world, 0, 0, 'static'), --left
-      shape = love.physics.newEdgeShape(0, 0, 0, VIRTUAL_SIZE.y) },
-    { body = love.physics.newBody(self.level.world, VIRTUAL_SIZE.x, 0, 'static'), --right
-      shape = love.physics.newEdgeShape(0, 0, 0, VIRTUAL_SIZE.y) },
-    { body = love.physics.newBody(self.level.world, 0, VIRTUAL_SIZE.y, 'static'), --bottom
-      shape = love.physics.newEdgeShape(0, 0, VIRTUAL_SIZE.x, 0) }
-  }
-  
-  for k, edge in pairs(self.edges) do
-    self.edges[k].fixture = love.physics.newFixture(self.edges[k].body, self.edges[k].shape)
-    self.edges[k].fixture:setUserData('Edge')
-  end
+  -- up
+  local edge_pos = LEVEL_OFFSET
+  local edge_size = tiny.Vector2D(VIRTUAL_SIZE.x - LEVEL_OFFSET.x, 0)
+  local edge = Edge(self.level.world, edge_pos, edge_size)
+  table.insert(self.level.edges, edge)
+  -- left
+  edge_size = tiny.Vector2D(0, VIRTUAL_SIZE.y - LEVEL_OFFSET.y)
+  edge = Edge(self.level.world, edge_pos, edge_size)
+  table.insert(self.level.edges, edge)
+  -- right
+  edge_pos = tiny.Vector2D(VIRTUAL_SIZE.x - LEVEL_OFFSET.x, LEVEL_OFFSET.y)
+  edge = Edge(self.level.world, edge_pos, edge_size)
+  table.insert(self.level.edges, edge)
+  -- bottom
+  edge_pos = tiny.Vector2D(0, VIRTUAL_SIZE.y)
+  edge_size = tiny.Vector2D(VIRTUAL_SIZE.x - LEVEL_OFFSET.x, 0)
+  edge = Edge(self.level.world, edge_pos, edge_size)
+  table.insert(self.level.edges, edge)
   
   -- enemies
-  local enemy_pos = tiny.Vector2D(math.floor(VIRTUAL_SIZE.x * 3 / 4), math.floor(VIRTUAL_SIZE.y * 3 / 4))
+  local enemy_pos = (VIRTUAL_SIZE - LEVEL_OFFSET) * 0.75
+  enemy_pos = enemy_pos:Floor() + LEVEL_OFFSET
   local enemy = Enemy(self.level.world, enemy_pos)
   table.insert(self.level.enemies, enemy)
  
   -- specify tempo in bpm
-  self.tempo = 60
+  self.tempo = 110
   self.beat_period = 60 / self.tempo
   self.timer = 0
   self.last_beat = 0

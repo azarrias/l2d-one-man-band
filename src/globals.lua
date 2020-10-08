@@ -15,7 +15,9 @@ require 'libs.slam'
 tiny = require 'libs.tiny'
 
 -- general purpose / utility
+require 'Edge'
 require 'Enemy'
+require 'GUI'
 require 'Level'
 require 'Player'
 require 'Projectile'
@@ -28,6 +30,7 @@ WINDOW_SIZE = tiny.Vector2D(1280, 720)
 VIRTUAL_SIZE = tiny.Vector2D(1280, 720)
 
 PLAYER_SIZE = tiny.Vector2D(math.floor(VIRTUAL_SIZE.x / 50), math.floor(VIRTUAL_SIZE.x / 50))
+LEVEL_OFFSET = tiny.Vector2D(0, math.floor(VIRTUAL_SIZE.y / 10))
 
 -- resources
 SOUNDS = {

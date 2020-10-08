@@ -1,13 +1,13 @@
 Level = Class{}
 
 function Level:init()
+  self.gui = GUI()
   self.world = love.physics.newWorld()
   self.player = Player(self)
   
-  -- enemies
+  -- other physics entities
+  self.edges = {}
   self.enemies = {}
-
-  -- projectiles
   self.projectiles = {}
   
   -- bodies to be destroyed after the world update cycle; destroying these in the
@@ -86,6 +86,7 @@ function Level:update(dt)
   end
 
   self.player:update(dt)
+  self.gui:update(dt)
 end
 
 function Level:render()
@@ -98,4 +99,6 @@ function Level:render()
   for k, projectile in pairs(self.projectiles) do
     projectile:render()
   end
+  
+  self.gui:render()
 end

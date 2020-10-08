@@ -3,14 +3,20 @@ Player = Class{}
 function Player:init(level)
   self.level = level
   self.world = level.world
-  self.kinetic_friction = 3
-  self.impulse_coeficient = -180
+  self.kinetic_friction = 4
+  self.impulse_coeficient = -500
   
-  self.body = love.physics.newBody(self.world, math.floor(VIRTUAL_SIZE.x / 2), math.floor(VIRTUAL_SIZE.y / 2), "dynamic")
+  local player_pos = (VIRTUAL_SIZE - LEVEL_OFFSET) / 2
+  player_pos = player_pos:Floor() + LEVEL_OFFSET
+
+  self.body = love.physics.newBody(self.world, player_pos.x, player_pos.y, "dynamic")
 	self.shape = love.physics.newCircleShape(PLAYER_SIZE.x / 2)
 	self.fixture = love.physics.newFixture(self.body, self.shape)
   self.fixture:setUserData('Player')
   self.fixture:setRestitution(1)
+  
+  self.max_health_points = 8
+  self.current_health_points = self.max_health_points
 end
  
 function Player:update(dt)
