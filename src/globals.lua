@@ -22,6 +22,7 @@ require 'Level'
 require 'Player'
 require 'Projectile'
 require 'SceneLevel1'
+require 'Score'
 require 'util'
 
 -- pixels resolution

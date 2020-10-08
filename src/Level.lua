@@ -5,6 +5,9 @@ function Level:init()
   self.world = love.physics.newWorld()
   self.player = Player(self)
   
+  -- music
+  self.score = nil
+  
   -- other physics entities
   self.edges = {}
   self.enemies = {}
@@ -59,6 +62,7 @@ function Level:init()
 end
 
 function Level:update(dt)
+  self.score:update(dt)
   self.world:update(dt)
 
   for k, body in pairs(self.destroyedBodies) do
