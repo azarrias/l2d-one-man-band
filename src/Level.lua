@@ -1,9 +1,9 @@
 Level = Class{}
 
 function Level:init()
-  self.gui = GUI()
   self.world = love.physics.newWorld()
   self.player = Player(self)
+  self.gui = GUI(self)
   
   -- music
   self.score = nil
