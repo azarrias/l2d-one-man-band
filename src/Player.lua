@@ -42,6 +42,10 @@ function Player:Dash()
   self.body:applyLinearImpulse(impulse.x, impulse.y)
 end
 
+function Player:ReduceHP(hp)
+  self.current_health_points = self.current_health_points - hp
+end
+
 function Player:Shoot()
   -- normalized vector between player position and mouse position
   local mouse_x, mouse_y = push:toGame(love.mouse.getPosition())

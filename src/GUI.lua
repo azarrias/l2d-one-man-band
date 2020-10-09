@@ -19,7 +19,7 @@ function GUI:init(level)
   -- sheet music lines
   self.lines_gap_y = 15
   self.note_radius = math.floor(self.lines_gap_y / 2)
-  self.note_pos_x_multiplier = 400
+  self.note_pos_x_multiplier = 200
   self.lines_pos_a = tiny.Vector2D(VIRTUAL_SIZE.x * 0.4, LEVEL_OFFSET.y / 2 - self.lines_gap_y / 2):Floor()
   self.lines_pos_b = tiny.Vector2D(VIRTUAL_SIZE.x - self.health_icon_pos.x, LEVEL_OFFSET.y / 2 - self.lines_gap_y / 2):Floor()
   self.vertical_bar_pos = tiny.Vector2D(math.floor(self.lines_pos_a.x + (self.lines_pos_b.x - self.lines_pos_a.x) / 3), self.lines_pos_a.y - self.lines_gap_y)

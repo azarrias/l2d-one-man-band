@@ -50,7 +50,7 @@ function Level:init()
         player, enemy = fixtureB, fixtureA
       end
       
-      player:getUserData().current_health_points = player:getUserData().current_health_points - 1
+      player:getUserData():ReduceHP(1)
     end
   end
   

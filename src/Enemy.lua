@@ -15,9 +15,10 @@ end
 function Enemy:update(dt)
   if self.body:isDestroyed() then
     self.remove_flag = true
+  else
+    -- Giving the box a gentle spin.
+    self.body:setAngularVelocity(0.5)
   end
-  -- Giving the box a gentle spin.
-	self.body:setAngularVelocity(0.5)
 end
 
 function Enemy:render()
