@@ -2,15 +2,27 @@ GUI = Class{}
 
 function GUI:init(level)
   self.level = level
+  
+  -- health icon
   self.border = 2
   self.health_icon_height = LEVEL_OFFSET.y / 2
   local health_icon_offset = tiny.Vector2D(LEVEL_OFFSET.y / 3, 0)
   self.health_icon_pos = tiny.Vector2D(LEVEL_OFFSET.y / 2 - self.health_icon_height / 2 + health_icon_offset.x, LEVEL_OFFSET.y / 2 - self.health_icon_height / 2 + health_icon_offset.y):Floor()
   self.health_icon_thickness = self.health_icon_height / 3
+  
+  -- health bar
   local hp_bars_offset = tiny.Vector2D(15, 8)
   self.hp_bars_pos = self.health_icon_pos + tiny.Vector2D(self.health_icon_height, 0) + hp_bars_offset
   self.hp_bars_size = tiny.Vector2D(math.floor(self.health_icon_thickness * 0.75), self.health_icon_height - hp_bars_offset.y)
-  self.hp_bars_gap = tiny.Vector2D(10, 0)
+  self.hp_bars_gap_x = 10
+  
+  -- sheet music lines
+  self.lines_gap_y = 15
+  self.note_radius = math.floor(self.lines_gap_y / 2)
+  self.note_pos_x_multiplier = 400
+  self.lines_pos_a = tiny.Vector2D(VIRTUAL_SIZE.x * 0.4, LEVEL_OFFSET.y / 2 - self.lines_gap_y / 2):Floor()
+  self.lines_pos_b = tiny.Vector2D(VIRTUAL_SIZE.x - self.health_icon_pos.x, LEVEL_OFFSET.y / 2 - self.lines_gap_y / 2):Floor()
+  self.vertical_bar_pos = tiny.Vector2D(math.floor(self.lines_pos_a.x + (self.lines_pos_b.x - self.lines_pos_a.x) / 3), self.lines_pos_a.y - self.lines_gap_y)
 end
 
 function GUI:update(dt)
@@ -43,16 +55,42 @@ function GUI:render()
   love.graphics.setLineWidth(self.border)
   for i = 1, self.level.player.max_health_points, 1 do
     love.graphics.rectangle('line', 
-      self.hp_bars_pos.x + self.hp_bars_size.x * (i - 1) + self.hp_bars_gap.x * (i - 1), 
+      self.hp_bars_pos.x + self.hp_bars_size.x * (i - 1) + self.hp_bars_gap_x * (i - 1), 
       self.hp_bars_pos.y, 
       self.hp_bars_size.x, 
       self.hp_bars_size.y)
     if self.level.player.current_health_points >= i then
       love.graphics.rectangle('fill', 
-        self.hp_bars_pos.x + self.hp_bars_size.x * (i - 1) + self.hp_bars_gap.x * (i - 1), 
+        self.hp_bars_pos.x + self.hp_bars_size.x * (i - 1) + self.hp_bars_gap_x * (i - 1), 
         self.hp_bars_pos.y, 
         self.hp_bars_size.x, 
         self.hp_bars_size.y)
+    end
+  end
+  
+  -- sheet music
+  love.graphics.setColor(0.6, 0.6, 0.6)
+  love.graphics.line(self.lines_pos_a.x, self.lines_pos_a.y, self.lines_pos_b.x, self.lines_pos_b.y)
+  love.graphics.line(self.lines_pos_a.x, self.lines_pos_a.y + self.lines_gap_y, self.lines_pos_b.x, self.lines_pos_b.y + self.lines_gap_y)
+  love.graphics.setColor(0.2, 0.6, 0.2)
+  love.graphics.line(self.vertical_bar_pos.x, self.vertical_bar_pos.y, self.vertical_bar_pos.x, self.vertical_bar_pos.y + self.lines_gap_y * 3)
+
+  -- sheet music notes
+  for k, note in ipairs(self.level.score.notes) do
+    local beat, midi_num = unpack(note)
+    local position_x = (beat * self.level.score.beat_period - self.level.score.timer) * self.note_pos_x_multiplier + self.vertical_bar_pos.x
+    local position_y = nil
+    if midi_num == 36 then
+      position_y = self.lines_pos_b.y + self.lines_gap_y
+    elseif midi_num == 38 then
+      position_y = self.lines_pos_b.y
+    end
+    if position_x > self.lines_pos_a.x + self.note_radius then
+      if position_x < self.lines_pos_b.x then
+        love.graphics.circle('line', position_x, position_y, self.note_radius)
+      else
+        break
+      end
     end
   end
 end
