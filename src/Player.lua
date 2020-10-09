@@ -1,6 +1,7 @@
 Player = Class{}
 
 function Player:init(level)
+  self.objType = 'Player'
   self.level = level
   self.world = level.world
   self.kinetic_friction = 4
@@ -12,7 +13,7 @@ function Player:init(level)
   self.body = love.physics.newBody(self.world, player_pos.x, player_pos.y, "dynamic")
 	self.shape = love.physics.newCircleShape(PLAYER_SIZE.x / 2)
 	self.fixture = love.physics.newFixture(self.body, self.shape)
-  self.fixture:setUserData('Player')
+  self.fixture:setUserData(self)
   self.fixture:setRestitution(1)
   
   self.max_health_points = 8

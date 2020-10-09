@@ -25,13 +25,13 @@ function Level:init()
   -- Gets called when two fixtures begin to overlap.
   function BeginContact(fixtureA, fixtureB, contact)
     local types = {}
-    types[fixtureA:getUserData()] = true
-    types[fixtureB:getUserData()] = true
+    types[fixtureA:getUserData().objType] = true
+    types[fixtureB:getUserData().objType] = true
     
     -- projectile collides with enemy
     if types['Projectile'] and types['Enemy'] then
       local projectile, enemy
-      if fixtureA:getUserData() == 'Projectile' then
+      if fixtureA:getUserData().objType == 'Projectile' then
         projectile, enemy = fixtureA, fixtureB
       else
         projectile, enemy = fixtureB, fixtureA
@@ -41,6 +41,16 @@ function Level:init()
       table.insert(self.destroyedBodies, projectile:getBody())
       table.insert(self.destroyedBodies, enemy:getBody())
       contact:setEnabled(false)
+      
+    elseif types['Player'] and types['Enemy'] then
+      local player, enemy
+      if fixtureA:getUserData().objType == 'Player' then
+        player, enemy = fixtureA, fixtureB
+      else
+        player, enemy = fixtureB, fixtureA
+      end
+      
+      player:getUserData().current_health_points = player:getUserData().current_health_points - 1
     end
   end
   
