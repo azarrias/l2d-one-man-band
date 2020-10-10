@@ -45,6 +45,8 @@ SOUNDS = {
   ['boss-drpad-snare'] = love.audio.newSource('sounds/Reverb Boss Dr Pad Sample Pack_Snare.wav', 'static'),
   ['boss-drpad-steel-drum'] = love.audio.newSource('sounds/Reverb Boss Dr Pad Sample Pack_Steel Drum.wav', 'static'),
   ['boss-drpad-tom'] = love.audio.newSource('sounds/Reverb Boss Dr Pad Sample Pack_Tom.wav', 'static'),
+  ['hit-enemy'] = love.audio.newSource('sounds/hit_enemy.wav', 'static'),
+  ['hit-player'] = love.audio.newSource('sounds/hit_player.wav', 'static'),
   ['roland-tr909-kick'] = love.audio.newSource('sounds/Reverb Roland TR-909 Sample Pack_Kick/Reverb Roland TR-909 Sample Pack_Kick Low Tone Max Attack Max Decay.wav', 'static'),
   ['roland-tr909-snare'] = love.audio.newSource('sounds/Reverb Roland TR-909 Sample Pack_Snare/Reverb Roland TR-909 Sample Pack_Snare Accent Mid Tuning Mid Tone Max Snap.wav', 'static')
 }

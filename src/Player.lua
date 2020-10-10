@@ -18,9 +18,25 @@ function Player:init(level)
   
   self.max_health_points = 8
   self.current_health_points = self.max_health_points
+  self.invulnerable = false
+  self.invulnerableDuration = 0
+  self.invulnerableTimer = 0
+  self.flashTimer = 0
 end
  
 function Player:update(dt)
+  if self.invulnerable then
+    self.flashTimer = self.flashTimer + dt
+    self.invulnerableTimer = self.invulnerableTimer + dt
+
+    if self.invulnerableTimer > self.invulnerableDuration then
+      self.invulnerable = false
+      self.invulnerableTimer = 0
+      self.invulnerableDuration = 0
+      self.flashTimer = 0
+    end
+  end
+  
   local vel_x, vel_y = self.body:getLinearVelocity()
   if math.abs(vel_x) > 5 or math.abs(vel_y) > 5 then
     self.body:setLinearVelocity(vel_x - vel_x * self.kinetic_friction * dt, vel_y - vel_y * self.kinetic_friction * dt)
@@ -31,7 +47,13 @@ end
 
 function Player:render()
   -- drawing the player
-  love.graphics.setColor(0.3, 1, 0.3)
+  if self.invulnerable and self.flashTimer > 0.1 then
+    self.flashTimer = 0
+  elseif self.invulnerable and self.flashTimer > 0.06 then
+    love.graphics.setColor(1, 1, 1)
+  else
+    love.graphics.setColor(0.3, 1, 0.3)
+  end
   love.graphics.circle('fill', self.body:getX(), self.body:getY(), self.shape:getRadius())
 end
 
@@ -42,8 +64,14 @@ function Player:Dash()
   self.body:applyLinearImpulse(impulse.x, impulse.y)
 end
 
+function Player:MakeInvulnerable(duration)
+  self.invulnerable = true
+  self.invulnerableDuration = duration
+end
+
 function Player:ReduceHP(hp)
   self.current_health_points = self.current_health_points - hp
+  self:MakeInvulnerable(1.5)
 end
 
 function Player:Shoot()

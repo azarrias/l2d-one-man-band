@@ -41,6 +41,7 @@ function Level:init()
       table.insert(self.destroyedBodies, projectile:getBody())
       table.insert(self.destroyedBodies, enemy:getBody())
       contact:setEnabled(false)
+      SOUNDS['hit-enemy']:play()
       
     elseif types['Player'] and types['Enemy'] then
       local player, enemy
@@ -50,7 +51,10 @@ function Level:init()
         player, enemy = fixtureB, fixtureA
       end
       
-      player:getUserData():ReduceHP(1)
+      if not player:getUserData().invulnerable then
+        player:getUserData():ReduceHP(1)
+        SOUNDS['hit-player']:play()
+      end
     end
   end
   
