@@ -3,6 +3,7 @@ Level = Class{}
 function Level:init()
   self.world = love.physics.newWorld()
   self.player = Player(self)
+  self.player:MakeInvulnerable(1.5)
   self.gui = GUI(self)
   
   -- music
@@ -104,6 +105,11 @@ function Level:update(dt)
   end
 
   self.player:update(dt)
+  if self.player.current_health_points <= 0 then
+    sceneManager:change('game-over')
+  elseif #self.enemies == 0 then
+    sceneManager:change('level-clear')
+  end
   self.gui:update(dt)
 end
 

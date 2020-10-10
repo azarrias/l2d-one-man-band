@@ -23,11 +23,18 @@ function love.load()
   })
   love.window.setTitle(GAME_TITLE)
   
+  -- set volume for sound fxs
+  SOUNDS['hit-enemy']:setVolume(0.05)
+  SOUNDS['hit-player']:setVolume(0.05)
+  
   scenes = {
-    ['Level1'] = function() return SceneLevel1() end
+    ['game-over'] = function() return SceneGameOver() end,
+    ['play'] = function() return ScenePlay() end,
+    ['level-clear'] = function() return SceneLevelClear() end,
+    ['start'] = function() return SceneStart() end
   }
   sceneManager = tiny.SceneManager(scenes)
-  sceneManager:change('Level1')
+  sceneManager:change('start')
   
   love.keyboard.keysPressed = {}
   love.mouse.buttonPressed = {}

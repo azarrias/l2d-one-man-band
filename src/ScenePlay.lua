@@ -1,6 +1,6 @@
-SceneLevel1 = Class{__includes = tiny.Scene}
+ScenePlay = Class{__includes = tiny.Scene}
 
-function SceneLevel1:init()
+function ScenePlay:init()
   self.level = Level()
   
   -- bounds
@@ -24,18 +24,21 @@ function SceneLevel1:init()
   table.insert(self.level.edges, edge)
   
   -- enemies
-  local enemy_pos = (VIRTUAL_SIZE - LEVEL_OFFSET) * 0.75
-  enemy_pos = enemy_pos:Floor() + LEVEL_OFFSET
-  local enemy = Enemy(self.level.world, enemy_pos)
-  table.insert(self.level.enemies, enemy)
+  for i = 1, 6, 1 do
+    local enemy_pos = tiny.Vector2D(math.random(math.floor(ENEMY_SIZE.x / 2), math.floor(VIRTUAL_SIZE.x - ENEMY_SIZE.x / 2)), 
+      math.random(math.floor(LEVEL_OFFSET.y + ENEMY_SIZE.y / 2), math.floor(VIRTUAL_SIZE.y - ENEMY_SIZE.y / 2)))
+    local enemy = Enemy(self.level.world, enemy_pos)
+    table.insert(self.level.enemies, enemy)
+  end
  
   -- score
   -- each note will be a table composed by:
   -- beat, midi number (note), (TODO - add velocity and duration)
   -- the notes table must have all beats in ascending order
-  local score_segment = { { 1, 36 }, { 2, 36 }, { 2, 38 }, { 3, 36 }, { 4, 36 }, { 4, 38 } }
+  --local score_segment = { { 1, 36 }, { 2, 36 }, { 2, 38 }, { 3, 36 }, { 4, 36 }, { 4, 38 } }
+  local score_segment = { { 1, 36 }, { 2, 38 }, { 3, 36 }, { 4, 38 } }
   self.level.score = Score(self.level, {
-    ['tempo'] = 110,
+    ['tempo'] = 100,
     ['notes'] = score_segment
   })
   -- this doubles note count every time
@@ -48,10 +51,10 @@ function SceneLevel1:init()
   self.level.score:AddNotes(score_segment)
 end
  
-function SceneLevel1:update(dt)
+function ScenePlay:update(dt)
   self.level:update(dt)
 end
 
-function SceneLevel1:render()
+function ScenePlay:render()
   self.level:render()
 end

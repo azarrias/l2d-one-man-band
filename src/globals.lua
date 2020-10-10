@@ -1,7 +1,7 @@
 --[[
     constants
   ]]
-GAME_TITLE = 'On Another Note'
+GAME_TITLE = 'Suicide Note'
 DEBUG_MODE = true
 
 -- OS checks in order to make necessary adjustments to support multiplatform
@@ -21,7 +21,10 @@ require 'GUI'
 require 'Level'
 require 'Player'
 require 'Projectile'
-require 'SceneLevel1'
+require 'SceneGameOver'
+require 'ScenePlay'
+require 'SceneLevelClear'
+require 'SceneStart'
 require 'Score'
 require 'util'
 
@@ -31,9 +34,20 @@ WINDOW_SIZE = tiny.Vector2D(1280, 720)
 VIRTUAL_SIZE = tiny.Vector2D(1280, 720)
 
 PLAYER_SIZE = tiny.Vector2D(math.floor(VIRTUAL_SIZE.x / 50), math.floor(VIRTUAL_SIZE.x / 50))
+ENEMY_SIZE = tiny.Vector2D(math.floor(VIRTUAL_SIZE.x / 25), math.floor(VIRTUAL_SIZE.x / 25))
 LEVEL_OFFSET = tiny.Vector2D(0, math.floor(VIRTUAL_SIZE.y / 10))
 
 -- resources
+FONTS = {
+  ['music-xxl'] = love.graphics.newFont('fonts/European Jazz American Music.ttf', 128),
+  ['music-xl'] = love.graphics.newFont('fonts/European Jazz American Music.ttf', 96),
+  ['music-l'] = love.graphics.newFont('fonts/European Jazz American Music.ttf', 64),
+  ['music-m'] = love.graphics.newFont('fonts/European Jazz American Music.ttf', 48),
+  ['music-s'] = love.graphics.newFont('fonts/European Jazz American Music.ttf', 32),
+  ['coolvetica-m'] = love.graphics.newFont('fonts/coolvetica rg.ttf', 48),
+  ['coolvetica-s'] = love.graphics.newFont('fonts/coolvetica rg.ttf', 32)
+}
+  
 SOUNDS = {
   ['boss-drpad-block'] = love.audio.newSource('sounds/Reverb Boss Dr Pad Sample Pack_Block.wav', 'static'),
   ['boss-drpad-chime-long'] = love.audio.newSource('sounds/Reverb Boss Dr Pad Sample Pack_Chime-Long.wav', 'static'),
