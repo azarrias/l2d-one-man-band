@@ -28,6 +28,9 @@ function ScenePlay:init()
     local enemy_pos = tiny.Vector2D(math.random(math.floor(ENEMY_SIZE.x / 2), math.floor(VIRTUAL_SIZE.x - ENEMY_SIZE.x / 2)), 
       math.random(math.floor(LEVEL_OFFSET.y + ENEMY_SIZE.y / 2), math.floor(VIRTUAL_SIZE.y - ENEMY_SIZE.y / 2)))
     local enemy = Enemy(self.level.world, enemy_pos)
+    local force = tiny.Vector2D(math.random() * 150000 * (math.random(2) == 2 and 1 or -1), math.random() * 150000 * (math.random(2) == 2 and 1 or -1))
+    enemy.body:applyForce(force.x, force.y)
+    enemy.spin = math.random() * math.pi * (math.random(2) == 2 and 1 or -1)
     table.insert(self.level.enemies, enemy)
   end
  

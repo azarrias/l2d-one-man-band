@@ -6,6 +6,7 @@ function Enemy:init(world, position)
 	self.shape = love.physics.newRectangleShape(math.floor(VIRTUAL_SIZE.x / 25), math.floor(VIRTUAL_SIZE.x / 25))
 	self.fixture = love.physics.newFixture(self.body, self.shape)
   self.fixture:setUserData(self)
+  self.spin = 0
   
   -- make enemies heavy, so that they don't move much when the player collides with them
   self.body:setMass(50)
@@ -17,7 +18,7 @@ function Enemy:update(dt)
     self.remove_flag = true
   else
     -- Giving the box a gentle spin.
-    self.body:setAngularVelocity(0.5)
+    self.body:setAngularVelocity(self.spin)
   end
 end
 
