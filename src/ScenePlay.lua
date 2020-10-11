@@ -53,7 +53,13 @@ function ScenePlay:init()
   self.level.score:AddNotes(score_segment)
   self.level.score:AddNotes(score_segment)
 end
- 
+
+function ScenePlay:enter(params)
+  if params and params.current_health_points then
+    self.level.player.current_health_points = params.current_health_points
+  end
+end
+
 function ScenePlay:update(dt)
   self.level:update(dt)
 end

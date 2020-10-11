@@ -108,7 +108,7 @@ function Level:update(dt)
   if self.player.current_health_points <= 0 then
     sceneManager:change('game-over')
   elseif #self.enemies == 0 then
-    sceneManager:change('level-clear')
+    sceneManager:change('level-clear', { current_health_points = self.player.current_health_points })
   end
   self.gui:update(dt)
 end
