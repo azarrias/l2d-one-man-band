@@ -14,7 +14,7 @@ function Player:init(level)
 	self.shape = love.physics.newCircleShape(PLAYER_SIZE.x / 2)
 	self.fixture = love.physics.newFixture(self.body, self.shape)
   self.fixture:setUserData(self)
-  self.fixture:setRestitution(1)
+  self.fixture:setRestitution(0.8)
   
   self.max_health_points = 8
   self.current_health_points = self.max_health_points
