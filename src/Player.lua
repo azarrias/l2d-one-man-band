@@ -82,7 +82,8 @@ function Player:Shoot()
   local radius = self.shape:getRadius()
   
   -- create projectile
-  local projectile_pos = player_pos + norm_v * radius
+  --local projectile_pos = player_pos + norm_v * radius
+  local projectile_pos = player_pos
   local projectile = Projectile(self.world, projectile_pos, norm_v)
   table.insert(self.level.projectiles, projectile)
 end

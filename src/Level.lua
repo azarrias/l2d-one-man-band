@@ -56,6 +56,11 @@ function Level:init()
         player:getUserData():ReduceHP(1)
         SOUNDS['hit-player']:play()
       end
+      
+    -- ignore collisions between projectile and player (when the player is shooting)
+    elseif types['Projectile'] and types['Player'] then
+      -- disable contact to avoid physics response
+      contact:setEnabled(false)
     end
   end
   
