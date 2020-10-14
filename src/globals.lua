@@ -29,9 +29,14 @@ require 'Score'
 require 'util'
 
 -- pixels resolution
-WINDOW_SIZE = tiny.Vector2D(1280, 720)
---VIRTUAL_SIZE = tiny.Vector2D(384, 216)
+local width, height = love.window.getDesktopDimensions(1)
+print (width)
+print (height)
+--WINDOW_SIZE = tiny.Vector2D(width, height)
+--VIRTUAL_SIZE = tiny.Vector2D(width, height)
+WINDOW_SIZE = tiny.Vector2D(width, height)
 VIRTUAL_SIZE = tiny.Vector2D(1280, 720)
+--VIRTUAL_SIZE = tiny.Vector2D(384, 216)
 
 PLAYER_SIZE = tiny.Vector2D(math.floor(VIRTUAL_SIZE.x / 50), math.floor(VIRTUAL_SIZE.x / 50))
 ENEMY_SIZE = tiny.Vector2D(math.floor(VIRTUAL_SIZE.x / 25), math.floor(VIRTUAL_SIZE.x / 25))

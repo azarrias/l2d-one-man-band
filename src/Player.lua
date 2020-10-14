@@ -9,10 +9,12 @@ function Player:init(level)
   
   local player_pos = (VIRTUAL_SIZE - LEVEL_OFFSET) / 2
   player_pos = player_pos:Floor() + LEVEL_OFFSET
+  self.last_mouse_pos = nil
 
   self.body = love.physics.newBody(self.world, player_pos.x, player_pos.y, "dynamic")
-	self.shape = love.physics.newCircleShape(PLAYER_SIZE.x / 2)
-	self.fixture = love.physics.newFixture(self.body, self.shape)
+  print(self.body:getMass())
+  self.shape = love.physics.newCircleShape(PLAYER_SIZE.x / 2)
+  self.fixture = love.physics.newFixture(self.body, self.shape)
   self.fixture:setUserData(self)
   self.fixture:setRestitution(0.8)
   
@@ -62,7 +64,7 @@ end
 
 function Player:Dash()
   self.ray_vector = nil
-  local mouse_x, mouse_y = push:toGame(love.mouse.getPosition())
+  local mouse_x, mouse_y = self:SafeGetMousePosition()
   local impulse = tiny.Vector2D(mouse_x - self.body:getX(), mouse_y - self.body:getY()):Normalize() * self.impulse_coeficient
   self.body:applyLinearImpulse(impulse.x, impulse.y)
 end
@@ -77,9 +79,23 @@ function Player:ReduceHP(hp)
   self:MakeInvulnerable(1.5)
 end
 
+function Player:SafeGetMousePosition()
+  local mouse_x, mouse_y = push:toGame(love.mouse.getPosition())
+  if mouse_x ~= nil and mouse_y ~= nil then
+    self.last_mouse_pos = tiny.Vector2D(mouse_x, mouse_y)
+  else
+    if self.last_mouse_pos ~= nil then
+      mouse_x, mouse_y = self.last_mouse_pos.x, self.last_mouse_pos.y
+    else
+      mouse_x, mouse_y = math.random(VIRTUAL_SIZE.x), math.random(VIRTUAL_SIZE.y)
+    end
+  end
+  return mouse_x, mouse_y
+end
+
 function Player:Shoot()
   -- normalized vector between player position and mouse position
-  local mouse_x, mouse_y = push:toGame(love.mouse.getPosition())
+  local mouse_x, mouse_y = self:SafeGetMousePosition()
   local player_pos = tiny.Vector2D(self.body:getX(), self.body:getY())
   local norm_v = tiny.Vector2D(mouse_x - player_pos.x, mouse_y - player_pos.y):Normalize()
   local radius = self.shape:getRadius()
