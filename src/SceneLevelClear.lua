@@ -2,9 +2,9 @@ SceneLevelClear = Class{__includes = tiny.Scene}
 
 function SceneLevelClear:init()
   self.text = {
-    { string = 'Level clear!', font = FONTS['coolvetica-m'], textColor = {53 / 255, 175 / 255, 42 / 255} },
-    { string = '\nPress space bar to continue', font = FONTS['coolvetica-s'], textColor = {200 / 255, 225 / 255, 220 / 255} },
-    { string = '\nESC to quit', font = FONTS['coolvetica-s'], textColor = {200 / 255, 225 / 255, 220 / 255}  }
+    { string = 'Level clear!', font = FONTS['retro-l'], textColor = {3 / 255, 196 / 255, 161 / 255} },
+    { string = '\nPress space bar to continue', font = FONTS['retro-s'], textColor = {225 / 255, 225 / 255, 225 / 255} },
+    { string = '\nESC to quit', font = FONTS['retro-s'], textColor = {225 / 255, 225 / 255, 225 / 255}  }
   }
   self.player_current_health_points = nil
 end

@@ -2,9 +2,9 @@ SceneGameOver = Class{__includes = tiny.Scene}
 
 function SceneGameOver:init()
   self.text = {
-    { string = 'You lose...', font = FONTS['coolvetica-m'], textColor = {175 / 255, 53 / 255, 42 / 255} },
-    { string = '\nPress space bar to play again', font = FONTS['coolvetica-s'], textColor = {225 / 255, 200 / 255, 220 / 255} },
-    { string = '\nESC to quit', font = FONTS['coolvetica-s'], textColor = {225 / 255, 200 / 255, 220 / 255}  }
+    { string = 'You lose...', font = FONTS['retro-l'], textColor = {89 / 255, 9 / 255, 149 / 255} },
+    { string = '\nPress space bar to play again', font = FONTS['retro-s'], textColor = {225 / 255, 225 / 255, 225 / 255} },
+    { string = '\nESC to quit', font = FONTS['retro-s'], textColor = {225 / 255, 225 / 255, 225 / 255}  }
   }
 end
 

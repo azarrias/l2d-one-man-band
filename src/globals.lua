@@ -39,13 +39,21 @@ LEVEL_OFFSET = tiny.Vector2D(0, math.floor(VIRTUAL_SIZE.y / 10))
 
 -- resources
 FONTS = {
+  ['coolvetica-xxl'] = love.graphics.newFont('fonts/coolvetica rg.ttf', 128),
+  ['coolvetica-xl'] = love.graphics.newFont('fonts/coolvetica rg.ttf', 96),
+  ['coolvetica-l'] = love.graphics.newFont('fonts/coolvetica rg.ttf', 64),
+  ['coolvetica-m'] = love.graphics.newFont('fonts/coolvetica rg.ttf', 48),
+  ['coolvetica-s'] = love.graphics.newFont('fonts/coolvetica rg.ttf', 32),
   ['music-xxl'] = love.graphics.newFont('fonts/European Jazz American Music.ttf', 128),
   ['music-xl'] = love.graphics.newFont('fonts/European Jazz American Music.ttf', 96),
   ['music-l'] = love.graphics.newFont('fonts/European Jazz American Music.ttf', 64),
   ['music-m'] = love.graphics.newFont('fonts/European Jazz American Music.ttf', 48),
   ['music-s'] = love.graphics.newFont('fonts/European Jazz American Music.ttf', 32),
-  ['coolvetica-m'] = love.graphics.newFont('fonts/coolvetica rg.ttf', 48),
-  ['coolvetica-s'] = love.graphics.newFont('fonts/coolvetica rg.ttf', 32)
+  ['retro-xxl'] = love.graphics.newFont('fonts/retro.ttf', 128),
+  ['retro-xl'] = love.graphics.newFont('fonts/retro.ttf', 96),
+  ['retro-l'] = love.graphics.newFont('fonts/retro.ttf', 64),
+  ['retro-m'] = love.graphics.newFont('fonts/retro.ttf', 48),
+  ['retro-s'] = love.graphics.newFont('fonts/retro.ttf', 32)
 }
   
 SOUNDS = {

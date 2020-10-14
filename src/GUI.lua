@@ -30,16 +30,16 @@ end
 
 function GUI:render()
   -- background
-  love.graphics.setColor(0.1, 0.1, 0.1)
+  love.graphics.setColor(17 / 255, 3 / 255, 106 / 255)
   love.graphics.rectangle('fill', 0, 0, VIRTUAL_SIZE.x, LEVEL_OFFSET.y)
   
   -- frame
-  love.graphics.setColor(0.2, 0, 0)
-  love.graphics.setLineWidth(self.border * 2)
-  love.graphics.rectangle('line', self.border, self.border, VIRTUAL_SIZE.x - self.border * 2, LEVEL_OFFSET.y - self.border * 2)
+  --love.graphics.setColor(0.2, 0, 0)
+  --love.graphics.setLineWidth(self.border * 2)
+  --love.graphics.rectangle('line', self.border, self.border, VIRTUAL_SIZE.x - self.border * 2, LEVEL_OFFSET.y - self.border * 2)
   
   -- health cross
-  love.graphics.setColor(0.6, 0.2, 0.2)
+  love.graphics.setColor(198 / 255, 42 / 255, 136 / 255)
   love.graphics.rectangle('fill', -- vertical bar
     math.floor(self.health_icon_pos.x + self.health_icon_height / 2 - self.health_icon_thickness / 2), 
     self.health_icon_pos.y, 
@@ -72,7 +72,7 @@ function GUI:render()
   love.graphics.setColor(0.6, 0.6, 0.6)
   love.graphics.line(self.lines_pos_a.x, self.lines_pos_a.y, self.lines_pos_b.x, self.lines_pos_b.y)
   love.graphics.line(self.lines_pos_a.x, self.lines_pos_a.y + self.lines_gap_y, self.lines_pos_b.x, self.lines_pos_b.y + self.lines_gap_y)
-  love.graphics.setColor(0.2, 0.6, 0.2)
+  love.graphics.setColor(3 / 255, 196 / 255, 161 / 255)
   love.graphics.line(self.vertical_bar_pos.x, self.vertical_bar_pos.y, self.vertical_bar_pos.x, self.vertical_bar_pos.y + self.lines_gap_y * 3)
 
   -- sheet music notes

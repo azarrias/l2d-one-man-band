@@ -25,6 +25,6 @@ end
 
 function Enemy:render()
 	-- drawing the box
-	love.graphics.setColor(1, 0.3, 0.3)
+	love.graphics.setColor(112 / 255, 91 / 255, 122 / 255)
 	love.graphics.polygon("fill", self.body:getWorldPoints(self.shape:getPoints()))
 end
