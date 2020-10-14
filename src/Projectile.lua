@@ -20,7 +20,7 @@ function Projectile:update(dt)
 end
 
 function Projectile:render()
-  love.graphics.setColor(1, 1, 0.3)
+  love.graphics.setColor(199 / 255, 36 / 255, 177 / 255)
   love.graphics.setLineWidth(3)
   love.graphics.line(self.body:getWorldPoints(self.shape:getPoints()))
 end

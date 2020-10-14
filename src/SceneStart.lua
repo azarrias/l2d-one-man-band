@@ -2,7 +2,7 @@ SceneStart = Class{__includes = tiny.Scene}
 
 function SceneStart:init()
   self.text = {
-    { string = GAME_TITLE, font = FONTS['music-xxl'] },
+    { string = GAME_TITLE, font = FONTS['music-xxl'], textColor = {255 / 255, 5 / 255, 5 / 255} },
     { string = '\nPress space bar to start', font = FONTS['coolvetica-s'], textColor = {225 / 255, 225 / 255, 225 / 255} },
     { string = '\nESC to quit', font = FONTS['coolvetica-s'], textColor = {225 / 255, 225 / 255, 225 / 255}  }
   }

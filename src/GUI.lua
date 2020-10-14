@@ -18,7 +18,7 @@ function GUI:init(level)
   
   -- sheet music lines
   self.lines_gap_y = 15
-  self.note_radius = math.floor(self.lines_gap_y / 2)
+  self.note_radius = math.floor(self.lines_gap_y * 0.6)
   self.note_pos_x_multiplier = 200
   self.lines_pos_a = tiny.Vector2D(VIRTUAL_SIZE.x * 0.4, LEVEL_OFFSET.y / 2 - self.lines_gap_y / 2):Floor()
   self.lines_pos_b = tiny.Vector2D(VIRTUAL_SIZE.x - self.health_icon_pos.x, LEVEL_OFFSET.y / 2 - self.lines_gap_y / 2):Floor()
@@ -76,6 +76,7 @@ function GUI:render()
   love.graphics.line(self.vertical_bar_pos.x, self.vertical_bar_pos.y, self.vertical_bar_pos.x, self.vertical_bar_pos.y + self.lines_gap_y * 3)
 
   -- sheet music notes
+  love.graphics.setColor(0.95, 0.95, 0.95)
   for k, note in ipairs(self.level.score.notes) do
     local beat, midi_num = unpack(note)
     local position_x = (beat * self.level.score.beat_period - self.level.score.timer) * self.note_pos_x_multiplier + self.vertical_bar_pos.x
@@ -87,7 +88,8 @@ function GUI:render()
     end
     if position_x > self.lines_pos_a.x + self.note_radius then
       if position_x < self.lines_pos_b.x then
-        love.graphics.circle('line', position_x, position_y, self.note_radius)
+        --love.graphics.circle('line', position_x, position_y, self.note_radius)
+        love.graphics.ellipse('line', position_x, position_y, self.note_radius, self.note_radius * 0.8)
       else
         break
       end

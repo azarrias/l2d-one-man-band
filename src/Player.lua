@@ -5,7 +5,7 @@ function Player:init(level)
   self.level = level
   self.world = level.world
   self.kinetic_friction = 4
-  self.impulse_coeficient = -500
+  self.impulse_coeficient = 500
   
   local player_pos = (VIRTUAL_SIZE - LEVEL_OFFSET) / 2
   player_pos = player_pos:Floor() + LEVEL_OFFSET
@@ -47,20 +47,23 @@ end
 
 function Player:render()
   -- drawing the player
-  if self.invulnerable and self.flashTimer > 0.1 then
+  if self.invulnerable and self.flashTimer > 0.13 then
     self.flashTimer = 0
-  elseif self.invulnerable and self.flashTimer > 0.06 then
-    love.graphics.setColor(1, 1, 1)
+  elseif self.invulnerable and self.flashTimer > 0.07 then
+    love.graphics.setColor(0, 0, 0)
   else
-    love.graphics.setColor(0.3, 1, 0.3)
+    love.graphics.setColor(1, 1, 1)
   end
-  love.graphics.circle('fill', self.body:getX(), self.body:getY(), self.shape:getRadius())
+  --love.graphics.circle('fill', self.body:getX(), self.body:getY(), self.shape:getRadius())
+  love.graphics.ellipse('fill', self.body:getX(), self.body:getY(), self.shape:getRadius(), self.shape:getRadius() * 0.8)
+  love.graphics.setColor(0, 0, 0)
+  love.graphics.ellipse('fill', self.body:getX(), self.body:getY(), self.shape:getRadius() * 0.6, self.shape:getRadius() * 0.7)
 end
 
 function Player:Dash()
   self.ray_vector = nil
   local mouse_x, mouse_y = push:toGame(love.mouse.getPosition())
-  local impulse = tiny.Vector2D(mouse_x - self.body:getX(), mouse_y - self.body:getY()):Normalize() * self.impulse_coeficient 
+  local impulse = tiny.Vector2D(mouse_x - self.body:getX(), mouse_y - self.body:getY()):Normalize() * self.impulse_coeficient
   self.body:applyLinearImpulse(impulse.x, impulse.y)
 end
 
